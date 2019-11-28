@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+PREREQUSITE_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +41,15 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'corsheaders',
+
 ]
+
+PROJECT_APPS = [
+    'apps.account.apps.AccountConfig',
+
+]
+
+INSTALLED_APPS = PREREQUSITE_APPS + PROJECT_APPS
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
