@@ -52,10 +52,8 @@ class Login extends Component {
     this.props.history.push("/");
   }
 
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   render() {
@@ -67,13 +65,13 @@ class Login extends Component {
             type="text"
             placeholder="Email"
             name="email"
-            onChange={e => this.handleChange(e)}
+            onChange={this.onChange}
           />
           <input
             type="password"
             placeholder="Password"
             name="password"
-            onChange={e => this.handleChange(e)}
+            onChange={this.onChange}
           />
           <button onClick={this.initStream}>Submit</button>
         </div>
