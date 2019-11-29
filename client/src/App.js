@@ -1,19 +1,17 @@
 import React from "react";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { Switch } from "react-router-dom";
 
-import Login from "./Components/Login";
-import Home from "./Components/Home";
+import Login from "./components/Login";
+import Home from "./components/Home";
 
-import UnauthedRoute from "./Components/UnauthedRoute";
-import AuthedRoute from "./Components/AuthedRoute";
+import UnauthedRoute from "./components/UnauthedRoute";
+import AuthedRoute from "./components/AuthedRoute";
 
 const App = () => (
-  <Router>
-    <Switch>
-      <UnauthedRoute path="/auth/login" component={Login} />
-      <AuthedRoute path="/" component={Home} />
-    </Switch>
-  </Router>
+  <Switch>
+    <UnauthedRoute path="/auth/login" component={Login} />
+    <AuthedRoute path="/" component={Home} />
+  </Switch>
 );
 
 export default App;

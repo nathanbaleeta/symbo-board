@@ -6,7 +6,7 @@ class Home extends Component {
   render() {
     return (
       <Fragment>
-        <h1>Nathan</h1>
+        <h1>Nathan Baleeta</h1>
       </Fragment>
     );
   }
