@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import axios from "axios";
+
+//import { API, base } from "../utils/APIUtils";
+
+import API, { base } from "../utils/APIUtils";
 
 class Login extends Component {
   constructor(props) {
@@ -19,8 +22,6 @@ class Login extends Component {
       loading: true
     });
 
-    const base = "http://localhost:8000";
-
     const formData = new FormData();
     formData.set("username", this.state.email);
     formData.set("password", this.state.password);
@@ -34,7 +35,7 @@ class Login extends Component {
       }
     }); */
 
-    const authorization = await axios({
+    const authorization = await API({
       method: "POST",
       url: `${base}/auth/token/login/`,
       data: formData,
