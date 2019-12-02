@@ -6,10 +6,11 @@ from apps.account.models.language import Language
 
 
 # Serializers define the API representation.
-class LanguageSerializer(serializers.HyperlinkedModelSerializer):
+class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
-        fields = ['locale', 'display_name']
+        #fields = ['id', 'locale', 'language']
+        fields = '__all__'
 
 
 # ViewSets define the view behavior.

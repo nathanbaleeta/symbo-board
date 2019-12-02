@@ -2,6 +2,8 @@ from django.db import models
 from django_extensions.db.models import TimeStampedModel
 import uuid
 
+from django.urls import reverse
+
 
 class Language(TimeStampedModel):
     """
@@ -11,9 +13,18 @@ class Language(TimeStampedModel):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     locale = models.CharField(max_length=100)
-    display_name = models.CharField(max_length=100, blank=True, null=True)
+    language = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         verbose_name = "Language"
         verbose_name_plural = "Languages"
         db_table = 'language'
+
+    # def __str__(self):
+    #    return '%s' % (self.display_name)
+
+    def get_absolute_url(self):
+        return reverse('language-detail', args=[str(self.id)])
+
+    def __str__(self):
+        return f'{self.locale}, {self.language}'
