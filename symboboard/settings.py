@@ -41,6 +41,7 @@ PREREQUSITE_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'corsheaders',
+    'drf_yasg',
 
 ]
 
@@ -56,7 +57,7 @@ INSTALLED_APPS = PREREQUSITE_APPS + PROJECT_APPS
 # For testing use 'AllowAny' option
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
