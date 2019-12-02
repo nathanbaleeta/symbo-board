@@ -5,6 +5,7 @@ from django.conf.urls import url, include
 from rest_framework import routers
 
 #from apps.account.api.user.user_endpoint import userRouter
+from apps.account.api.language.language_endpoint import languageRouter
 
 
 urlpatterns = [
@@ -13,6 +14,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),
 
     #url(r'^api/', include(userRouter.urls)),
+    url(r'^api/', include(languageRouter.urls)),
 
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
