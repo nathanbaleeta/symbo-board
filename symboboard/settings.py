@@ -51,9 +51,12 @@ PROJECT_APPS = [
 
 INSTALLED_APPS = PREREQUSITE_APPS + PROJECT_APPS
 
+
+# Setting globally the permission policy: for production use 'IsAuthenticated'
+# For testing use 'AllowAny' option
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',

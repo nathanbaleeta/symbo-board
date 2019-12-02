@@ -17,5 +17,5 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 # Routers provide an easy way of automatically determining the URL conf.
-userRouter = routers.DefaultRouter()
-userRouter.register(r'users', UserViewSet)
+#userRouter = routers.DefaultRouter()
+#userRouter.register(r'users', UserViewSet)

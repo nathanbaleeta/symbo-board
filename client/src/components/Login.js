@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-
-//import { API, base } from "../utils/APIUtils";
-
 import API, { base } from "../utils/APIUtils";
 
 class Login extends Component {
@@ -26,7 +23,7 @@ class Login extends Component {
     formData.set("username", this.state.email);
     formData.set("password", this.state.password);
 
-    /* const registration = await axios({
+    /* const registration = await API({
       method: "POST",
       url: `${base}/auth/users/`,
       data: formData,
