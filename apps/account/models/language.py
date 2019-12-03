@@ -20,11 +20,11 @@ class Language(TimeStampedModel):
         verbose_name_plural = "Languages"
         db_table = 'language'
 
-    # def __str__(self):
-    #    return '%s' % (self.display_name)
-
     def get_absolute_url(self):
         return reverse('language-detail', args=[str(self.id)])
 
     def __str__(self):
         return f'{self.locale}, {self.language}'
+
+    # def __str__(self):
+    #    return '%s' % (self.display_name)

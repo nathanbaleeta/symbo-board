@@ -34,6 +34,12 @@ class LanguageTest(TestCase):
         max_length = language._meta.get_field('language').max_length
         self.assertEquals(max_length, 100)
 
+    def test_verbose_name_singular(self):
+        self.assertEqual(str(Language._meta.verbose_name), "Language")
+
+    def test_verbose_name_plural(self):
+        self.assertEqual(str(Language._meta.verbose_name_plural), "Languages")
+
     # def test_string_representation_of_language_is_language_name(self):
     def test_object_name_is_locale_comma_language(self):
         language = Language.objects.first()
