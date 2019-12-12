@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import API, { base } from "../utils/APIUtils";
+import axios from "axios";
 
 class Login extends Component {
   constructor(props) {
@@ -32,9 +32,9 @@ class Login extends Component {
       }
     }); */
 
-    const authorization = await API({
+    const authorization = await axios({
       method: "POST",
-      url: `${base}/auth/token/login/`,
+      url: "http://127.0.0.1/auth/token/login/",
       data: formData,
       config: {
         headers: { "Content-Type": "multipart/form-data" }

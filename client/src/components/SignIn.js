@@ -11,6 +11,7 @@ import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import { Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { login } from "../actions/auth/auth";
@@ -54,18 +55,32 @@ class SignIn extends Component {
     password: ""
   };
 
+  clearLoginForm = e => {
+    this.setState({ email: "", password: "" });
+  };
+
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   onSubmit = event => {
+    // Prevent from submitting empty form
     event.preventDefault();
-    // this.props.login(this.state.email, this.state.password);
+
+    // Call login action creator
+    this.props.login(this.state.email, this.state.password);
+
+    // Clear textfields in login form
+    this.clearLoginForm();
   };
 
   render() {
     const { classes } = this.props;
     const { email, password } = this.state;
+
+    if (this.props.isAuthenticated) {
+      return <Redirect to="/" />;
+    }
 
     return (
       <Fragment>
@@ -85,7 +100,7 @@ class SignIn extends Component {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Email Address or username"
                 name="email"
                 value={email}
                 autoComplete="email"
@@ -140,10 +155,13 @@ class SignIn extends Component {
 
 SignIn.propTypes = {
   classes: PropTypes.object.isRequired,
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
 
 export default connect(
   mapStateToProps,

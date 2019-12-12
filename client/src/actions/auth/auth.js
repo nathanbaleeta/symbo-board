@@ -1,83 +1,40 @@
-import {
-  USER_LOADED,
-  //USER_LOADING,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT_SUCCESS
-} from "../../constants/ActionTypes";
+import axios from "axios";
 
-import API from "../../utils/APIUtils";
-
-// CHECK TOKEN & LOAD USER
-export const loadUser = () => (dispatch, getState) => {
-  API.get("auth/user", tokenConfig(getState))
-    .then(res => {
-      dispatch({
-        type: USER_LOADED,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: AUTH_ERROR
-      });
-    });
-};
+import { LOGIN_SUCCESS, LOGIN_FAIL } from "../../constants/ActionTypes";
 
 // LOGIN USER
-export const login = (email, password) => dispatch => {
+export const login = (username, password) => dispatch => {
   // Headers
   const config = {
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Accept: "application/json"
     }
   };
 
   // Request Body
-  const body = JSON.stringify({ email, password });
+  const body = JSON.stringify({ username, password });
 
-  API.post("auth/login", body, config)
-    .then(res => {
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: res.data
-      });
-    })
-    .catch(err =>
-      dispatch({
-        type: LOGIN_FAIL,
-        payload: err
-      })
-    );
-};
-
-// LOGOUT USER
-export const logout = () => (dispatch, getState) => {
-  API.post("auth/logout", null, tokenConfig(getState))
-    .then(res => {
-      dispatch({
-        type: LOGOUT_SUCCESS
-      });
-    })
-    .catch(err => err);
-};
-
-// Setup config with token - helper function
-export const tokenConfig = getState => {
-  // Get token from state
-  const token = getState().auth.token;
-
-  // Headers
-  const config = {
-    headers: {
-      "Content-Type": "application/json"
+  async function signUp() {
+    try {
+      await axios
+        .post("http://127.0.0.1:8000/auth/token/login", body, config)
+        .then(res => {
+          dispatch({
+            type: LOGIN_SUCCESS,
+            payload: res.data
+          });
+        })
+        .catch(err =>
+          dispatch({
+            type: LOGIN_FAIL,
+            payload: err
+          })
+        );
+    } catch (error) {
+      console.log(error);
     }
-  };
-
-  if (token) {
-    config.headers["Authorization"] = `Token ${token}`;
   }
 
-  return config;
+  signUp();
 };
