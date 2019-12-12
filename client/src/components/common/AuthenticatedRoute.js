@@ -1,20 +1,21 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
-const AuthedRoute = ({ component: Component, loading, ...rest }) => {
+const AuthenticatedRoute = ({ component: Component, ...rest }) => {
+  //checks for the presence of a token in localStorage:
+  //if there is one, it means an authenticated user is logged-in
   const isAuthed = Boolean(localStorage.getItem("token"));
   return (
     <Route
       {...rest}
       render={props =>
-        loading ? (
-          <p>Loading...</p>
-        ) : !isAuthed ? (
+        isAuthed ? (
           <Component history={props.history} {...rest} />
         ) : (
           <Redirect
             to={{
-              pathname: "/"
+              pathname: "/auth/login",
+              state: { from: props.location }
             }}
           />
         )
@@ -23,4 +24,4 @@ const AuthedRoute = ({ component: Component, loading, ...rest }) => {
   );
 };
 
-export default AuthedRoute;
+export default AuthenticatedRoute;

@@ -1,16 +1,20 @@
 import React from "react";
-import { Switch } from "react-router-dom";
+import "typeface-roboto";
 
-import Login from "./components/Login";
+import { Switch, Route } from "react-router-dom";
+
+//import Login from "./components/Login";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
 import Home from "./components/Home";
 
-import UnauthedRoute from "./components/UnauthedRoute";
-import AuthedRoute from "./components/AuthedRoute";
+import AuthenticatedRoute from "./components/common/AuthenticatedRoute";
 
 const App = () => (
   <Switch>
-    <UnauthedRoute path="/auth/login" component={Login} />
-    <AuthedRoute path="/" component={Home} />
+    <Route path="/auth/login" render={props => <SignIn {...props} />} />
+    <Route path="/auth/signup" component={SignUp} />
+    <AuthenticatedRoute path="/" component={Home} />
   </Switch>
 );
 
