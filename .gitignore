@@ -7,3 +7,8 @@ include/
 lib/
 
 media/
+
+__pycache__/
+
+env/
+.vscode/
