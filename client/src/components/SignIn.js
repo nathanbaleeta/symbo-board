@@ -56,7 +56,7 @@ class SignIn extends Component {
   };
 
   clearLoginForm = e => {
-    this.setState({ email: "", password: "" });
+    this.setState({ username: "", password: "" });
   };
 
   onChange = e => {
@@ -68,7 +68,7 @@ class SignIn extends Component {
     event.preventDefault();
 
     // Call login action creator
-    this.props.login(this.state.email, this.state.password);
+    this.props.login(this.state.username, this.state.password);
 
     // Clear textfields in login form
     this.clearLoginForm();
@@ -76,7 +76,7 @@ class SignIn extends Component {
 
   render() {
     const { classes } = this.props;
-    const { email, password } = this.state;
+    const { username, password } = this.state;
 
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
@@ -99,11 +99,11 @@ class SignIn extends Component {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address or username"
-                name="email"
-                value={email}
-                autoComplete="email"
+                id="username"
+                label="Username"
+                name="username"
+                value={username}
+                autoComplete="username"
                 autoFocus
                 onChange={this.onChange}
               />
