@@ -3,6 +3,8 @@ from django.conf import settings
 
 from django.urls import path, include
 from django.conf.urls import url, include
+from rest_framework import routers
+
 
 # Swagger prerequisite imports
 from rest_framework import permissions
@@ -10,6 +12,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from apps.account.api.language.language_endpoint import languageRouter
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -27,7 +30,18 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
+
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+
+
     url(r'^api/', include(languageRouter.urls)),
+
+
+
+
 
     # Yet another Swagger generator
     url(r'^swagger/$', schema_view.with_ui('swagger',
@@ -35,9 +49,13 @@ urlpatterns = [
     url(r'^redoc/$', schema_view.with_ui('redoc',
                                          cache_timeout=0), name='schema-redoc'),
 
-
     # Add security deterrent layer: Redirect to admin authentication page if no url matched
-    url(r'^(.*)', admin.site.urls),
+    #url(r'^(.*)', admin.site.urls),
+
+
+
+
+
 
 
 

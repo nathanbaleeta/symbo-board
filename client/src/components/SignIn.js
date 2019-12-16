@@ -14,7 +14,7 @@ import Container from "@material-ui/core/Container";
 import { Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { login } from "../actions/auth/auth";
+import { signIn } from "../actions/auth/auth";
 
 function Copyright() {
   return (
@@ -55,7 +55,12 @@ class SignIn extends Component {
     password: ""
   };
 
+  componentDidMount() {
+    this.clearLoginForm();
+  }
+
   clearLoginForm = e => {
+    // clear all your form
     this.setState({ username: "", password: "" });
   };
 
@@ -68,10 +73,11 @@ class SignIn extends Component {
     event.preventDefault();
 
     // Call login action creator
-    this.props.login(this.state.username, this.state.password);
+    this.props.signIn(this.state.username, this.state.password);
 
     // Clear textfields in login form
     this.clearLoginForm();
+    event.target.reset();
   };
 
   render() {
@@ -165,5 +171,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { login }
+  { signIn }
 )(withStyles(styles)(SignIn));

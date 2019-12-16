@@ -15,7 +15,7 @@ import Container from "@material-ui/core/Container";
 import { Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { login } from "../actions/auth/auth";
+import { signUp } from "../actions/auth/auth";
 
 function Copyright() {
   return (
@@ -52,15 +52,13 @@ const styles = theme => ({
 
 class SignUp extends Component {
   state = {
-    firstname: "",
-    lastname: "",
     email: "",
     username: "",
     password: ""
   };
 
   clearSignUpForm = e => {
-    this.setState({ email: "", password: "" });
+    this.setState({ email: "", username: "", password: "" });
   };
 
   onChange = e => {
@@ -71,8 +69,12 @@ class SignUp extends Component {
     // Prevent from submitting empty form
     event.preventDefault();
 
-    // Call login action creator
-    this.props.login(this.state.email, this.state.password);
+    // Call signUp action creator
+    this.props.signUp(
+      this.state.email,
+      this.state.username,
+      this.state.password
+    );
 
     // Clear textfields in sign up form
     this.clearSignUpForm();
@@ -80,7 +82,7 @@ class SignUp extends Component {
 
   render() {
     const { classes } = this.props;
-    const { email, password } = this.state;
+    const { email, username, password } = this.state;
 
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
@@ -97,31 +99,8 @@ class SignUp extends Component {
             <Typography component="h1" variant="h5">
               Sign up
             </Typography>
-            <form className={classes.form} noValidate>
+            <form onSubmit={this.onSubmit} className={classes.form} noValidate>
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    autoComplete="fname"
-                    name="firstName"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="firstName"
-                    label="First Name"
-                    autoFocus
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="lname"
-                  />
-                </Grid>
                 <Grid item xs={12}>
                   <TextField
                     variant="outlined"
@@ -130,7 +109,9 @@ class SignUp extends Component {
                     id="email"
                     label="Email Address"
                     name="email"
+                    value={email}
                     autoComplete="email"
+                    onChange={this.onChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -141,7 +122,9 @@ class SignUp extends Component {
                     id="username"
                     label="Username"
                     name="username"
+                    value={username}
                     autoComplete="username"
+                    onChange={this.onChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -149,11 +132,13 @@ class SignUp extends Component {
                     variant="outlined"
                     required
                     fullWidth
-                    name="password"
+                    id="password"
                     label="Password"
                     type="password"
-                    id="password"
+                    name="password"
+                    value={password}
                     autoComplete="current-password"
+                    onChange={this.onChange}
                   />
                 </Grid>
               </Grid>
@@ -196,5 +181,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { login }
+  { signUp }
 )(withStyles(styles)(SignUp));

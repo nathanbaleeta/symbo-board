@@ -9,9 +9,9 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 
-    url(r'^api/', include(languageRouter.urls)),
-
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^api/', include(languageRouter.urls)),
 
 
     # Add security deterrent layer: Redirect to authentication page if no url matched
