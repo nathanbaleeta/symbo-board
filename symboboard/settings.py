@@ -48,6 +48,7 @@ INSTALLED_APPS = PREREQUSITE_APPS + PROJECT_APPS
 
 # Setting globally the permission policy: for production use 'IsAuthenticated'
 # For testing use 'AllowAny' option
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
@@ -107,6 +108,12 @@ DATABASES = {
     }
 }
 
+# Email Transport configuration
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'do.not.reply.symboboard@gmail.com'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD', 'invalid_if_no_email')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

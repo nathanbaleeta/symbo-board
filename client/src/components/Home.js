@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from "react";
 
+import Header from "../components/Navigation/Header";
+
 class Home extends Component {
   state = {};
 
   render() {
     return (
       <Fragment>
-        <h1>Nathan Baleeta</h1>
+        <Header />
       </Fragment>
     );
   }

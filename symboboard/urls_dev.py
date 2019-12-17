@@ -28,6 +28,10 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+
+    path('.*', include('djoser.urls')),
+
+    path('', include('djoser.urls')),
     path('admin/', admin.site.urls),
 
     path('auth/', include('djoser.urls')),
@@ -36,8 +40,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
 
-
-    url(r'^api/', include(languageRouter.urls)),
+    url(r'^api/v1/', include(languageRouter.urls)),
 
 
 
@@ -50,7 +53,8 @@ urlpatterns = [
                                          cache_timeout=0), name='schema-redoc'),
 
     # Add security deterrent layer: Redirect to admin authentication page if no url matched
-    #url(r'^(.*)', admin.site.urls),
+    url(r'^(.*)', include('djoser.urls')),
+
 
 
 
