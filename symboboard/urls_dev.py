@@ -47,10 +47,10 @@ urlpatterns = [
 
 
     # Yet another Swagger generator
-    url(r'^swagger/$', schema_view.with_ui('swagger',
-                                           cache_timeout=0), name='schema-swagger-ui'),
-    url(r'^redoc/$', schema_view.with_ui('redoc',
-                                         cache_timeout=0), name='schema-redoc'),
+    path('swagger', schema_view.with_ui('swagger',
+                                        cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc',
+                                       cache_timeout=0), name='schema-redoc'),
 
     # Add security deterrent layer: Redirect to admin authentication page if no url matched
     url(r'^(.*)', include('djoser.urls')),
