@@ -45,6 +45,8 @@ PROJECT_APPS = [
 
 INSTALLED_APPS = PREREQUSITE_APPS + PROJECT_APPS
 
+AUTH_USER_MODEL = 'account.User'
+
 
 # Setting globally the permission policy: for production use 'IsAuthenticated'
 # For testing use 'AllowAny' option
