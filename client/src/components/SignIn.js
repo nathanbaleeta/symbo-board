@@ -34,7 +34,8 @@ const styles = theme => ({
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    zoom: "90%"
   },
   avatar: {
     margin: theme.spacing(1),
@@ -45,7 +46,8 @@ const styles = theme => ({
     marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(3, 0, 2),
+    background: "mediumvioletred"
   }
 });
 
@@ -55,11 +57,7 @@ class SignIn extends Component {
     password: ""
   };
 
-  componentDidMount() {
-    this.clearLoginForm();
-  }
-
-  clearLoginForm = e => {
+  clearLoginForm = () => {
     // clear all your form
     this.setState({ username: "", password: "" });
   };
@@ -72,21 +70,21 @@ class SignIn extends Component {
     // Prevent from submitting empty form
     event.preventDefault();
 
+    const { username, password } = this.state;
+
     // Call login action creator
-    this.props.signIn(this.state.username, this.state.password);
+    this.props.signIn(username, password);
 
     // Clear textfields in login form
     this.clearLoginForm();
-    event.target.reset();
   };
 
   render() {
-    const { classes } = this.props;
-    const { username, password } = this.state;
-
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
     }
+    const { classes } = this.props;
+    const { username, password } = this.state;
 
     return (
       <Fragment>
@@ -131,7 +129,7 @@ class SignIn extends Component {
                 type="submit"
                 fullWidth
                 variant="contained"
-                color="primary"
+                color="secondary"
                 className={classes.submit}
               >
                 Sign In
@@ -161,7 +159,7 @@ class SignIn extends Component {
 
 SignIn.propTypes = {
   classes: PropTypes.object.isRequired,
-  login: PropTypes.func.isRequired,
+  signIn: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool
 };
 

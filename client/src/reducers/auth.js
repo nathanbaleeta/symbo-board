@@ -3,12 +3,13 @@ import {
   USER_LOADING,
   AUTH_ERROR,
   LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT_SUCCESS
+  LOGIN_FAILURE,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE
 } from "../constants/ActionTypes";
 
 const initialState = {
-  token: localStorage.getItem("token"),
+  auth_token: localStorage.getItem("auth_token"),
   isAuthenticated: null,
   isLoading: false,
   user: null
@@ -29,7 +30,7 @@ export default function(state = initialState, action) {
         user: action.payload
       };
     case LOGIN_SUCCESS:
-      localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("auth_token", action.payload.auth_token);
       return {
         ...state,
         ...action.payload,
@@ -38,20 +39,22 @@ export default function(state = initialState, action) {
       };
 
     case AUTH_ERROR:
-    case LOGIN_FAIL:
-      localStorage.removeItem("token");
+    case LOGIN_FAILURE:
+      localStorage.removeItem("auth_token");
       return {
         ...state,
-        token: null,
+        auth_token: null,
         user: null,
         isAuthenticated: false,
         isLoading: false
       };
+
+    case LOGOUT_FAILURE:
     case LOGOUT_SUCCESS:
-      localStorage.removeItem("token");
+      localStorage.removeItem("auth_token");
       return {
         ...state,
-        token: null,
+        auth_token: null,
         user: null,
         isAuthenticated: false,
         isLoading: false

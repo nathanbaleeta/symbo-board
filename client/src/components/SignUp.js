@@ -52,13 +52,21 @@ const styles = theme => ({
 
 class SignUp extends Component {
   state = {
+    first_name: "",
+    last_name: "",
     email: "",
     username: "",
     password: ""
   };
 
   clearSignUpForm = e => {
-    this.setState({ email: "", username: "", password: "" });
+    this.setState({
+      first_name: "",
+      last_name: "",
+      email: "",
+      username: "",
+      password: ""
+    });
   };
 
   onChange = e => {
@@ -72,6 +80,8 @@ class SignUp extends Component {
     // Call signUp action creator
     this.props.signUp(
       this.state.email,
+      this.state.first_name,
+      this.state.last_name,
       this.state.username,
       this.state.password
     );
@@ -82,7 +92,7 @@ class SignUp extends Component {
 
   render() {
     const { classes } = this.props;
-    const { email, username, password } = this.state;
+    const { first_name, last_name, email, username, password } = this.state;
 
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
@@ -101,6 +111,32 @@ class SignUp extends Component {
             </Typography>
             <form onSubmit={this.onSubmit} className={classes.form} noValidate>
               <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="first_name"
+                    label="Firstname"
+                    name="first_name"
+                    value={first_name}
+                    autoComplete="first_name"
+                    onChange={this.onChange}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="last_name"
+                    label="Lastname"
+                    name="last_name"
+                    value={last_name}
+                    autoComplete="last_name"
+                    onChange={this.onChange}
+                  />
+                </Grid>
                 <Grid item xs={12}>
                   <TextField
                     variant="outlined"
