@@ -1,27 +1,27 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-const AuthenticatedRoute = ({ component: Component, ...rest }) => {
-  //checks for the presence of a token in localStorage:
-  //if there is one, it means an authenticated user is logged-in
-  const isAuthed = Boolean(localStorage.getItem("token"));
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        isAuthed ? (
-          <Component history={props.history} {...rest} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/auth/login",
-              state: { from: props.location }
-            }}
-          />
-        )
-      }
-    />
-  );
+const AuthenticatedRoute = ({ component: Component, auth, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      auth.isAuthenticated === true ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/auth/login" />
+      )
+    }
+  />
+);
+
+AuthenticatedRoute.propTypes = {
+  auth: PropTypes.object.isRequired
 };
 
-export default AuthenticatedRoute;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(AuthenticatedRoute);
