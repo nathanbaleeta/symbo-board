@@ -113,6 +113,7 @@ DATABASES = {
     }
 }
 
+
 # Email Transport configuration
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'do.not.reply.symboboard@gmail.com'
