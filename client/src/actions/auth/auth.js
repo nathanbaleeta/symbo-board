@@ -12,13 +12,7 @@ import {
 } from "../../constants/ActionTypes";
 
 // SIGN UP USER
-export const signUp = (
-  email,
-  first_name,
-  last_name,
-  username,
-  password
-) => dispatch => {
+export const signUp = (first_name, last_name, email, password) => dispatch => {
   // Headers
   const config = {
     headers: {
@@ -29,10 +23,9 @@ export const signUp = (
 
   // Request Body
   const body = JSON.stringify({
-    email,
     first_name,
     last_name,
-    username,
+    email,
     password
   });
 
@@ -61,7 +54,7 @@ export const signUp = (
 };
 
 // SIGN IN USER
-export const signIn = (username, password) => dispatch => {
+export const signIn = (email, password) => dispatch => {
   // Headers
   const config = {
     headers: {
@@ -71,7 +64,7 @@ export const signIn = (username, password) => dispatch => {
   };
 
   // Request Body
-  const body = JSON.stringify({ username, password });
+  const body = JSON.stringify({ email, password });
 
   async function login() {
     try {

@@ -35,7 +35,7 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    zoom: "90%"
+    zoom: "80%"
   },
   avatar: {
     margin: theme.spacing(1),
@@ -53,13 +53,13 @@ const styles = theme => ({
 
 class SignIn extends Component {
   state = {
-    username: "",
+    email: "",
     password: ""
   };
 
   clearLoginForm = () => {
     // clear all your form
-    this.setState({ username: "", password: "" });
+    this.setState({ email: "", password: "" });
   };
 
   onChange = e => {
@@ -70,10 +70,10 @@ class SignIn extends Component {
     // Prevent from submitting empty form
     event.preventDefault();
 
-    const { username, password } = this.state;
+    const { email, password } = this.state;
 
     // Call login action creator
-    this.props.signIn(username, password);
+    this.props.signIn(email, password);
 
     // Clear textfields in login form
     this.clearLoginForm();
@@ -84,7 +84,7 @@ class SignIn extends Component {
       return <Redirect to="/" />;
     }
     const { classes } = this.props;
-    const { username, password } = this.state;
+    const { email, password } = this.state;
 
     return (
       <Fragment>
@@ -103,11 +103,11 @@ class SignIn extends Component {
                 margin="normal"
                 required
                 fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                value={username}
-                autoComplete="username"
+                id="email"
+                label="Email Address"
+                name="email"
+                value={email}
+                autoComplete="email"
                 autoFocus
                 onChange={this.onChange}
               />

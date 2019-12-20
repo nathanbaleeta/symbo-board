@@ -35,7 +35,8 @@ const styles = theme => ({
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    zoom: "80%"
   },
   avatar: {
     margin: theme.spacing(1),
@@ -56,7 +57,6 @@ class SignUp extends Component {
     first_name: "",
     last_name: "",
     email: "",
-    username: "",
     password: ""
   };
 
@@ -65,7 +65,6 @@ class SignUp extends Component {
       first_name: "",
       last_name: "",
       email: "",
-      username: "",
       password: ""
     });
   };
@@ -78,14 +77,10 @@ class SignUp extends Component {
     // Prevent from submitting empty form
     event.preventDefault();
 
+    const { first_name, last_name, email, password } = this.state;
+
     // Call signUp action creator
-    this.props.signUp(
-      this.state.email,
-      this.state.first_name,
-      this.state.last_name,
-      this.state.username,
-      this.state.password
-    );
+    this.props.signUp(first_name, last_name, email, password);
 
     // Clear textfields in sign up form
     this.clearSignUpForm();
@@ -93,7 +88,7 @@ class SignUp extends Component {
 
   render() {
     const { classes } = this.props;
-    const { first_name, last_name, email, username, password } = this.state;
+    const { first_name, last_name, email, password } = this.state;
 
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
@@ -151,19 +146,7 @@ class SignUp extends Component {
                     onChange={this.onChange}
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
-                    value={username}
-                    autoComplete="username"
-                    onChange={this.onChange}
-                  />
-                </Grid>
+
                 <Grid item xs={12}>
                   <TextField
                     variant="outlined"

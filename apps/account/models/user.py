@@ -17,7 +17,8 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=30)  # Make lastname mandatory
 
     # Use this setting to leverage djoser auth User model and simply extend it
-    REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
+    USERNAME_FIELD = 'email'
 
     class Meta:
         verbose_name = "User"
