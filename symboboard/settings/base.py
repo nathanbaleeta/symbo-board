@@ -4,23 +4,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '1-88lzkged_-+418vdood5wqp2v9*7!k(+&j6)pc6&5fir-3@3'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
-# ENVIRONMENT CONFIGURATION SETTINGS
-LOCAL_DEV = True
-PRODUCTION = False
-
-
 # Application definition
 
 PREREQUSITE_APPS = [
@@ -48,19 +31,6 @@ INSTALLED_APPS = PREREQUSITE_APPS + PROJECT_APPS
 AUTH_USER_MODEL = 'account.User'
 
 
-# Setting globally the permission policy: for production use 'IsAuthenticated'
-# For testing use 'AllowAny' option
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    )
-}
-
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -76,12 +46,6 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 #CORS_ALLOW_CREDENTIALS = True
-
-
-if LOCAL_DEV:
-    ROOT_URLCONF = 'symboboard.urls_dev'
-elif PRODUCTION:
-    ROOT_URLCONF = 'symboboard.urls_prod'
 
 
 TEMPLATES = [
@@ -101,17 +65,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'symboboard.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Email Transport configuration
