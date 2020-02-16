@@ -1,19 +1,15 @@
 from apps.account.api.language.language_endpoint import languageRouter
-#from apps.account.api.user.user_endpoint import userRouter
+
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from django.contrib import admin
-from django.conf import settings
 
-from django.urls import path, include
+
+from django.urls import path
 from django.conf.urls import url, include
-from rest_framework import routers
-
 
 # Swagger prerequisite imports
-
-
 schema_view = get_schema_view(
     openapi.Info(
         title="Symbo Board API",
@@ -40,9 +36,6 @@ urlpatterns = [
 
     url(r'^api/', include(languageRouter.urls)),
 
-
-
-
     # Yet another Swagger generator
     path('swagger', schema_view.with_ui('swagger',
                                         cache_timeout=0), name='schema-swagger-ui'),
@@ -51,10 +44,6 @@ urlpatterns = [
 
     # Add security deterrent layer: Redirect to admin authentication page if no url matched
     url(r'^(.*)', include('djoser.urls')),
-
-
-
-
 
 
 

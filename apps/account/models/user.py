@@ -7,18 +7,21 @@ from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, BaseU
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, first_name, last_name, email, password):
+    def create_user(self, first_name, last_name, email, password, country_of_origin):
         user = self.model(first_name=first_name,
-                          last_name=last_name, email=email, password=password)
+                          last_name=last_name, email=email, password=password, country_of_origin=country_of_origin)
         user.set_password(password)
         user.is_staff = False
         user.is_superuser = False
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, first_name, last_name, email, password):
-        user = self.create_user(first_name=first_name,
-                                last_name=last_name, email=email, password=password)
+    def create_superuser(self, first_name, last_name, email, password, country_of_origin):
+        # user = self.create_user(first_name=first_name,
+        #                        last_name=last_name, email=email, password=password)
+        user = self.model(first_name=first_name,
+                          last_name=last_name, email=email, password=password, country_of_origin=country_of_origin)
+        user.set_password(password)
         user.is_active = True
         user.is_staff = True
         user.is_superuser = True
@@ -41,8 +44,12 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=30)  # Make lastname mandatory
     username = models.CharField(max_length=30, blank=True)
 
+    #birth_date = models.DateField(null=True, blank=True)
+    country_of_origin = models.CharField(
+        max_length=100,  blank=True)
+
     # Use this setting to leverage djoser auth User model and simply extend it
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'country_of_origin']
     USERNAME_FIELD = 'email'
 
     objects = UserManager()
